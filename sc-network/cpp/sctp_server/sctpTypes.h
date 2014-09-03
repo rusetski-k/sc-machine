@@ -29,6 +29,8 @@ extern "C"
 #include "sc_helper.h"
 }
 
+#include "sctpVersion.h"
+
 #define POINTER_TO_UINT(p)	((sc_uint) (sc_ulong) (p))
 #define UINT_TO_POINTER(u)	((sc_pointer) (sc_ulong) (u))
 

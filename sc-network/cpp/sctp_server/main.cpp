@@ -21,11 +21,33 @@ along with OSTIS.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QCommandLineParser>
+
+#include <iostream>
+
 #include "sctpServer.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QCoreApplication app(argc, argv);
+    QCoreApplication::setApplicationName(SCTP_SERVER_NAME);
+    QCoreApplication::setApplicationVersion(SCTP_SERVER_VERSION_STR);
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Implementation of " SCTP_SERVER_NAME);
+    const QCommandLineOption optionHelp = parser.addHelpOption();
+    const QCommandLineOption optionVersion = parser.addVersionOption();
+
+    parser.process(app);
+
+    if (parser.isSet(optionHelp))
+        parser.showHelp();
+
+    if (parser.isSet(optionVersion))
+    {
+        std::cout << SCTP_SERVER_NAME << " version " << SCTP_SERVER_VERSION_STR << std::endl;
+        return 0;
+    }
 
     QString config("config.ini");
     if (argc > 1)
@@ -35,7 +57,8 @@ int main(int argc, char *argv[])
     if (!server.start(config))
         exit(0);
 
-    QObject::connect(&a, SIGNAL(aboutToQuit()), &server, SLOT(stop()));
+    QObject::connect(&app, SIGNAL(aboutToQuit()), &server, SLOT(stop()));
+
     
-    return a.exec();
+    return app.exec();
 }
