@@ -1,6 +1,6 @@
 project (sc-machine)
 site_name (www.ostis.net)
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.8.9)
 
 set(SC_MACHINE_ROOT ${CMAKE_SOURCE_DIR})
 
