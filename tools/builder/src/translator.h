@@ -81,6 +81,8 @@ protected:
     tStringAddrMap mLocalIdtfAddrs;
     //! Pointer to memory context
     sc_memory_context *mContext;
+    //! Pointer to context, that used for identifiers search
+    sc_memory_context *mContextIdtfSearch;
 };
 
 /*! Interface for translators factory

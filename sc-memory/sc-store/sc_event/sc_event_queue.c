@@ -5,9 +5,9 @@
  */
 
 #include "sc_event_queue.h"
-#include "sc_event.h"
+#include "../sc_event.h"
 #include "sc_event_private.h"
-#include "../sc_memory_private.h"
+#include "../../sc_memory_private.h"
 
 
 gpointer sc_event_queue_thread_loop(gpointer data)

@@ -148,6 +148,18 @@ Addr MemoryContext::createArc(sc_type type, Addr const & addrBeg, Addr const & a
     return Addr(sc_memory_arc_new(mContext, type, addrBeg.mRealAddr, addrEnd.mRealAddr));
 }
 
+bool MemoryContext::setElementAccessLevels(Addr const & addr, sc_access_levels accessLevels, sc_access_levels * newValue)
+{
+    check(isValid());
+    return sc_memory_set_element_access_levels(mContext, addr.mRealAddr, accessLevels, newValue) == SC_RESULT_OK;
+}
+
+bool MemoryContext::getElementAccessLevels(Addr const & addr, sc_access_levels * result) const
+{
+    check(isValid());
+    return sc_memory_get_element_access_levels(mContext, addr.mRealAddr, result) == SC_RESULT_OK;
+}
+
 sc_type MemoryContext::getElementType(Addr const & addr) const
 {
     check(isValid());
@@ -203,7 +215,7 @@ bool MemoryContext::getLinkContent(Addr const & addr, Stream & stream)
     return stream.isValid();
 }
 
-bool MemoryContext::findLinksByContent(Stream const & stream, tAddrList & found)
+bool MemoryContext::findLinksByContent(Stream const & stream, tAddrList & found) const
 {
     check(isValid());
 
@@ -221,6 +233,24 @@ bool MemoryContext::findLinksByContent(Stream const & stream, tAddrList & found)
         free(result);
 
     return found.size() > 0;
+}
+
+Addr MemoryContext::findElementBySystemIdentifier(std::string const & sysIdtf) const
+{
+    check(isValid());
+
+    sc_addr addr;
+    if (sc_helper_find_element_by_system_identifier(mContext, sysIdtf.c_str(), sysIdtf.size(), &addr) != SC_RESULT_OK)
+        return Addr();
+
+    return Addr(addr);
+}
+
+bool MemoryContext::setSystemIdentifier(Addr const & addr, std::string const & sysIdtf)
+{
+    check(isValid());
+
+    return sc_helper_set_system_identifier(mContext, addr.mRealAddr, sysIdtf.c_str(), sysIdtf.size()) == SC_RESULT_OK;
 }
 
 bool MemoryContext::save()

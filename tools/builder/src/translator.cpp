@@ -15,10 +15,13 @@ iTranslator::tStringAddrMap iTranslator::msGlobalIdtfAddrs = iTranslator::tStrin
 iTranslator::iTranslator(sc_memory_context *context)
     : mContext(context)
 {
+    // create context for identifiers resolve (used max access level for read)
+    mContextIdtfSearch = sc_memory_context_new(sc_access_lvl_make(SC_ACCESS_LVL_MAX_VALUE, SC_ACCESS_LVL_MIN_VALUE));
 }
 
 iTranslator::~iTranslator()
 {
+    sc_memory_context_free(mContextIdtfSearch);
 }
 
 bool iTranslator::translate(const TranslatorParams &params)

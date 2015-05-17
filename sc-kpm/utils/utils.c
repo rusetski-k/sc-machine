@@ -37,7 +37,7 @@ sc_result initialize()
 
 sc_uint32 load_priority()
 {
-    return 0;
+    return 1;
 }
 
 sc_result shutdown()

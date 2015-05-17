@@ -8,7 +8,8 @@
 
 extern "C"
 {
-#include "sc_memory.h"
+#include "../sc_memory.h"
+#include "../sc_helper.h"
 }
 
 #include "sc_addr.hpp"
@@ -70,6 +71,10 @@ public:
     Addr createLink();
     Addr createArc(sc_type type, Addr const & addrBeg, Addr const & addrEnd);
 
+    //! Change access level of sc-element. Pointer to newValue can be null, if it doesn't need to receive it.
+    bool setElementAccessLevels(Addr const & addr, sc_access_levels accessLevels, sc_access_levels * newValue);
+    bool getElementAccessLevels(Addr const & addr, sc_access_levels * result) const;
+
     //! Returns type of sc-element. If there are any error, then returns 0
     sc_type getElementType(Addr const & addr) const;
     /*! Change subtype of sc-element (subtype & sc_type_element_mask == 0).
@@ -84,7 +89,13 @@ public:
     bool getLinkContent(Addr const & addr, Stream & stream);
 
     //! Returns true, if any links found
-    bool findLinksByContent(Stream const & stream, tAddrList & found);
+    bool findLinksByContent(Stream const & stream, tAddrList & found) const;
+
+    //! Return sc-addr of element by system identifier. If element not found, then returned Addr is not valid
+    Addr findElementBySystemIdentifier(std::string const & sysIdtf) const;
+
+    //! Setup new system identifier for sc-element. Returns true, if it changed.
+    bool setSystemIdentifier(Addr const & addr, std::string const & sysIdtf);
 
     //! Saves memory state
     bool save();

@@ -276,7 +276,7 @@ bool GwfTranslator::getScAddr(const String &idtf, sc_addr &addr)
         return true;
     }
 
-    if (sc_helper_find_element_by_system_identifier(mContext, idtf.c_str(), idtf.size(), &addr) == SC_RESULT_OK)
+    if (sc_helper_find_element_by_system_identifier(mContextIdtfSearch, idtf.c_str(), idtf.size(), &addr) == SC_RESULT_OK)
         return true;
 
     return false;

@@ -8,7 +8,7 @@
 
 extern "C"
 {
-#include "sc_memory.h"
+#include "../sc_memory.h"
 }
 
 #include <vector>
@@ -25,6 +25,9 @@ class Addr
     template <typename ParamType1, typename ParamType2, typename ParamType3, typename ParamType4, typename ParamType5> friend class Iterator5;
 
 public:
+    explicit Addr();
+    explicit Addr(sc_addr const & addr);
+
     bool isValid() const;
     void reset();
 
@@ -32,9 +35,6 @@ public:
     bool operator != (Addr const & other) const;
 
 protected:
-    explicit Addr();
-    explicit Addr(sc_addr const & addr);
-
     sc_addr mRealAddr;
 };
 

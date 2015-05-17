@@ -57,7 +57,7 @@ sc_result sc_helper_get_keynode(sc_memory_context const * ctx, sc_keynode keynod
 /*! Resolve sc-elemen by specified string system identifier
  * @param system_idtf String that represents system identifier (it will be converted into utf-8)
  * @param result Pointer to result sc-addr container
- * @return If sc-element was founded, then return SC_TRUE; otherwise return SC_FALSE.
+ * @return If sc-element is found, then return SC_TRUE; otherwise return SC_FALSE.
  */
 sc_bool sc_helper_resolve_system_identifier(sc_memory_context const * ctx, const char *system_idtf, sc_addr *result);
 

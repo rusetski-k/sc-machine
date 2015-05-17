@@ -404,7 +404,7 @@ sc_addr SCsTranslator::resolveScAddr(sElement *el)
                 else
                 {
                     // resolve system identifier
-                    sc_result res = sc_helper_find_element_by_system_identifier(mContext, el->idtf.c_str(), el->idtf.size(), &addr);
+                    sc_result res = sc_helper_find_element_by_system_identifier(mContextIdtfSearch, el->idtf.c_str(), el->idtf.size(), &addr);
                     if (res == SC_RESULT_OK)
                         mSysIdtfAddrs[el->idtf] = addr;
                 }

@@ -277,6 +277,27 @@ void test_common_streams()
     shutdown_memory(false);
 }
 
+void test_common_helper()
+{
+    init_memory();
+
+    {
+        std::string const idtf = "test_idtf";
+        sc::MemoryContext ctx;
+        sc::Addr addr = ctx.createNode(sc_type_const);
+
+        g_assert(addr.isValid());
+        g_assert(ctx.isElement(addr));
+
+        g_assert(ctx.setSystemIdentifier(addr, idtf));
+        sc::Addr addr2 = ctx.findElementBySystemIdentifier(idtf);
+        g_assert(addr2.isValid());
+        g_assert(addr2 == addr);
+    }
+
+    shutdown_memory(false);
+}
+
 int main(int argc, char *argv[])
 {
     g_test_init(&argc, &argv, NULL);
@@ -284,6 +305,7 @@ int main(int argc, char *argv[])
     g_test_add_func("/common/elements", test_common_elements);
     g_test_add_func("/common/iterators", test_common_iterators);
     g_test_add_func("/common/streams", test_common_streams);
+    g_test_add_func("/common/helper", test_common_helper);
 
     g_test_run();
 
