@@ -8,6 +8,7 @@
 #define _merge_keynodes_h_
 
 #include "sc_memory.h"
+#include "sc_helper.h"
 
 extern sc_addr keynode_question_set_cantorization;
 
@@ -19,5 +20,9 @@ extern sc_addr keynode_system_element;
 
 //! Initialie keynodes that used by merge module
 sc_result merge_keynodes_initialize();
+
+sc_result sc_common_resolve_keynode(sc_memory_context const * ctx, char const * sys_idtf, sc_addr * keynode);
+
+#define RESOLVE_KEYNODE(ctx, keynode) if (sc_common_resolve_keynode(ctx, keynode##_str, &keynode) != SC_RESULT_OK) return SC_RESULT_ERROR;
 
 #endif

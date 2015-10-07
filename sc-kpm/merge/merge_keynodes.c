@@ -7,8 +7,6 @@
 #include "merge_keynodes.h"
 #include "merge.h"
 
-#include "../common/sc_keynodes.h"
-
 #include "sc_helper.h"
 #include <glib.h>
 
@@ -27,6 +25,17 @@ const char keynode_question_str[] = "question";
 const char keynode_nrel_answer_str[] = "nrel_answer";
 const char keynode_question_finished_str[] = "question_finished";
 const char keynode_system_element_str[] = "system_element";
+
+sc_result sc_common_resolve_keynode(sc_memory_context const * ctx, char const * sys_idtf, sc_addr * keynode)
+{
+	if (sc_helper_resolve_system_identifier(ctx, sys_idtf, keynode) == SC_FALSE)
+	{
+		*keynode = sc_memory_node_new(ctx, 0);
+		if (sc_helper_set_system_identifier(ctx, *keynode, sys_idtf, (sc_uint32)strlen(sys_idtf)) != SC_RESULT_OK)
+			return SC_RESULT_ERROR;
+	}
+	return SC_RESULT_OK;
+}
 
 sc_result merge_keynodes_initialize()
 {

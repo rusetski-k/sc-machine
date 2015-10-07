@@ -4,10 +4,12 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef _sc_common_types_h_
-#define _sc_common_types_h_
+#pragma once
 
-#include "sc_memory.h"
+#include "wrap/sc_memory.hpp"
+
+#include <string>
+#include <map>
 
 #if defined (SC_MEMORY_SELF_BUILD)
 	#if defined (SC_PLATFORM_WIN)
@@ -23,4 +25,6 @@
 	#endif
 #endif
 
-#endif //_sc_common_types_h_
+
+typedef std::string String;
+

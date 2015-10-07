@@ -10,6 +10,7 @@
 extern "C"
 {
 #include "sc_memory_headers.h"
+#include "sc_helper.h"
 }
 
 extern sc_addr keynode_user;
@@ -46,5 +47,9 @@ extern sc_addr ui_keynode_arg[UI_ARG_COUNT];
 
 //! Initialize all keynodes, that will be used in extension
 sc_bool initialize_keynodes();
+
+sc_result sc_common_resolve_keynode(sc_memory_context const * ctx, char const * sys_idtf, sc_addr * keynode);
+
+#define RESOLVE_KEYNODE(ctx, keynode) if (sc_common_resolve_keynode(ctx, keynode##_str, &keynode) != SC_RESULT_OK) return SC_RESULT_ERROR;
 
 #endif
