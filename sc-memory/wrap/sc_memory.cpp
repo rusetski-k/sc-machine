@@ -223,6 +223,16 @@ bool MemoryContext::findLinksByContent(Stream const & stream, tAddrList & found)
     return found.size() > 0;
 }
 
+Addr MemoryContext::findElementBySysIdtf(std::string const & sysIdtf)
+{
+	sc_addr result;
+	SC_ADDR_MAKE_EMPTY(result);
+	if (sc_helper_find_element_by_system_identifier(mContext, sysIdtf.data(), sysIdtf.size(), &result) == SC_RESULT_OK)
+		return Addr();
+
+	return Addr(result);
+}
+
 bool MemoryContext::save()
 {
     check_expr(isValid());

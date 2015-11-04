@@ -9,6 +9,7 @@
 extern "C"
 {
 #include "sc_memory.h"
+#include "sc_helper.h"
 }
 
 #include "sc_types.hpp"
@@ -88,6 +89,9 @@ public:
 
     //! Returns true, if any links found
     _SC_EXTERN bool findLinksByContent(Stream const & stream, tAddrList & found);
+
+	//! Finds element by system identifier
+	_SC_EXTERN Addr findElementBySysIdtf(std::string const & sysIdtf);
 
     //! Saves memory state
     _SC_EXTERN bool save();

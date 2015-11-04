@@ -21,14 +21,16 @@ namespace kpm
 		static AgentManager * msInstance;
 
 	public:
-		static AgentManager & getInstance();
+		_SC_KPM_EXTERN static AgentManager & getInstance();
 
-		void registerAgent(Agent * inAgent);
-		void unregisterAgent(Agent * inAgent);
+		_SC_KPM_EXTERN void registerAgent(Agent * inAgent);
+		_SC_KPM_EXTERN void unregisterAgent(Agent * inAgent);
 
 	private:
 		typedef std::map<String, Agent *> tAgentsMap;
 		tAgentsMap mAgents;
+
+		sc::MemoryContext mMemoryCtx;
 	};
 
 }

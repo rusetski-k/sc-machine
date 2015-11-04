@@ -7,3 +7,18 @@
 #pragma once
 
 #include "kpmTypes.hpp"
+
+namespace kpm
+{
+	class Keynodes
+	{
+		friend class AgentManager;
+
+	protected:
+		explicit Keynodes();
+
+
+	};
+
+	typedef sc::TSharedPointer<Keynodes> KeynodesPtr;
+}

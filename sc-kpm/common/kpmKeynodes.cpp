@@ -5,3 +5,11 @@
  */
 
 #include "kpmKeynodes.hpp"
+
+namespace kpm
+{
+	Keynodes::Keynodes()
+	{
+
+	}
+}

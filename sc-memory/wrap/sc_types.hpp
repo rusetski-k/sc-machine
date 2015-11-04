@@ -8,3 +8,5 @@
 
 #include "sc_memory.h"
 
+#include <string>
+

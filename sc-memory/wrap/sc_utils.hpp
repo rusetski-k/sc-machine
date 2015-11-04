@@ -7,7 +7,6 @@
 #pragma once
 
 #include <exception>
-#include <string>
 #include <assert.h>
 
 #include "sc_types.hpp"
@@ -103,13 +102,13 @@ public:
         return *this;
     }
 
-    ObjectType & operator = (ObjectType * object)
+    /*ObjectType & operator = (ObjectType * object)
     {
 		clear();
         mObject = object;
         initRef();
         return *this;
-    }
+    }*/
 
     ObjectType & operator * () const
     {
@@ -140,6 +139,11 @@ public:
         return mRefCount;
     }
 
+	inline void reset()
+	{
+		clear();
+	}
+
 private:
     void initRef()
     {
@@ -149,7 +153,7 @@ private:
 
 	void clear()
 	{
-		if (mRefCount->unref() == 0)
+		if (mRefCount && mRefCount->unref() == 0)
 		{
 			delete mRefCount;
 			delete mObject;

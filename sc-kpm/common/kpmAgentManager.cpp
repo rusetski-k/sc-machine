@@ -6,6 +6,7 @@
 
 #include "kpmAgentManager.hpp"
 #include "kpmAgent.hpp"
+#include "kpmKeynodes.hpp"
 
 namespace kpm
 {
@@ -21,6 +22,7 @@ namespace kpm
 	}
 
 	AgentManager::AgentManager()
+		: mMemoryCtx(sc_access_lvl_make_max, "AgentManager")
 	{
 	}
 
@@ -33,6 +35,10 @@ namespace kpm
 		check_expr(inAgent);
 		check_expr(mAgents.find(inAgent->getSystemIdentifier()) == mAgents.end());
 		mAgents[inAgent->getSystemIdentifier()] = inAgent;
+
+		sc::Addr const agentAddr = mMemoryCtx.findElementBySysIdtf(inAgent->getSystemIdentifier());
+		if (agentAddr.isValid())
+			inAgent->initialize(agentAddr, new Keynodes());
 	}
 
 	void AgentManager::unregisterAgent(Agent * inAgent)
@@ -41,6 +47,8 @@ namespace kpm
 		tAgentsMap::iterator found = mAgents.find(inAgent->getSystemIdentifier());
 		check_expr(found != mAgents.end());
 		mAgents.erase(found);
+
+		inAgent->shutdown();
 	}
 
 }

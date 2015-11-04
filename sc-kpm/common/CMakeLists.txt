@@ -7,4 +7,3 @@ include_directories("${SC_KPM_ROOT}/common" ${SC_MEMORY_SRC} ${GLIB2_INCLUDE_DIR
 add_dependencies(sc-kpm-common sc-memory-cpp)
 target_link_libraries(sc-kpm-common sc-memory-cpp ${GLIB2_LIBRARIES})
 target_compile_definitions(sc-kpm-common PUBLIC "-DSC_KPM_COMMON_SELF_BUILD")
-
