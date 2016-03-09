@@ -13,6 +13,7 @@
 #include <glib.h>
 
 sc_addr keynode_question_set_cantorization;
+sc_addr keynode_question_merge_two_elements;
 
 sc_addr keynode_question;
 sc_addr keynode_question_initiated;
@@ -21,6 +22,7 @@ sc_addr keynode_question_finished;
 sc_addr keynode_system_element;
 
 const char keynode_question_set_cantorization_str[] = "question_set_cantorization";
+const char keynode_question_merge_two_elements_str[] = "question_merge_two_elements";
 
 const char keynode_question_initiated_str[] = "question_initiated";
 const char keynode_question_str[] = "question";
@@ -32,6 +34,7 @@ sc_result merge_keynodes_initialize()
 {
 
     RESOLVE_KEYNODE(s_default_ctx, keynode_question_set_cantorization);
+    RESOLVE_KEYNODE(s_default_ctx, keynode_question_merge_two_elements);
 
     RESOLVE_KEYNODE(s_default_ctx, keynode_nrel_answer);
     RESOLVE_KEYNODE(s_default_ctx, keynode_question_initiated);

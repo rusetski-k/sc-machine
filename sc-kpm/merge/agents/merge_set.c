@@ -20,7 +20,6 @@ sc_result agent_set_cantorization(const sc_event *event, sc_addr arg)
     sc_iterator3 *it1, *it2;
     gpointer value;
     GHashTable *table;
-    //sc_iterator5 *it5, *it_order;
 
     if (!sc_memory_get_arc_end(s_default_ctx, arg, &question))
         return SC_RESULT_ERROR_INVALID_PARAMS;
@@ -59,6 +58,46 @@ sc_result agent_set_cantorization(const sc_event *event, sc_addr arg)
         g_hash_table_destroy(table);
     }
     sc_iterator3_free(it1);
+
+    finish_question(question);
+
+    return SC_RESULT_OK;
+}
+
+sc_result agent_merge_two_sc_elements(const sc_event *event, sc_addr arg)
+{
+    sc_addr question, elem1, elem2;
+    sc_iterator3 *it1;
+    SC_ADDR_MAKE_EMPTY(elem1);
+    SC_ADDR_MAKE_EMPTY(elem2);
+
+    if (!sc_memory_get_arc_end(s_default_ctx, arg, &question))
+        return SC_RESULT_ERROR_INVALID_PARAMS;
+
+    // check question type
+    if (sc_helper_check_arc(s_default_ctx, keynode_question_merge_two_elements, question, sc_type_arc_pos_const_perm) == SC_FALSE)
+        return SC_RESULT_ERROR_INVALID_TYPE;
+
+    // get operation argument
+    it1 = sc_iterator3_f_a_a_new(s_default_ctx,
+                                 question,
+                                 sc_type_arc_pos_const_perm,
+                                 0);
+    while (sc_iterator3_next(it1) == SC_TRUE)
+    {
+        if (SC_TRUE == SC_ADDR_IS_EMPTY(elem1))
+            elem1 = sc_iterator3_value(it1, 2);
+        else
+        {
+            elem2 = sc_iterator3_value(it1, 2);
+            break;
+        }
+    }
+    sc_iterator3_free(it1);
+    if (SC_TRUE == SC_ADDR_IS_EMPTY(elem1) || SC_TRUE == SC_ADDR_IS_EMPTY(elem2))
+        return SC_RESULT_ERROR_INVALID_PARAMS;
+
+    merge_sc_elements(elem1, elem2);
 
     finish_question(question);
 

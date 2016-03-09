@@ -10,6 +10,7 @@
 #include "sc_memory.h"
 
 extern sc_addr keynode_question_set_cantorization;
+extern sc_addr keynode_question_merge_two_elements;
 
 extern sc_addr keynode_nrel_answer;
 extern sc_addr keynode_question_finished;

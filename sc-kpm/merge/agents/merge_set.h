@@ -14,4 +14,9 @@
  */
 sc_result agent_set_cantorization(const sc_event *event, sc_addr arg);
 
+/*!
+ * Function, that implements sc-agent to merge two given elements
+ */
+sc_result agent_merge_two_sc_elements(const sc_event *event, sc_addr arg);
+
 #endif
